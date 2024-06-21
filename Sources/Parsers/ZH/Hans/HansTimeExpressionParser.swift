@@ -115,9 +115,9 @@ public class HansTimeExpressionParser: Parser {
             result.start.assign(.month, value: startMoment.month)
             result.start.assign(.year, value: startMoment.year)
         } else {
-            result.start.imply(.day, to: startMoment.day)
-            result.start.imply(.month, to: startMoment.month)
-            result.start.imply(.year, to: startMoment.year)
+            result.start.assign(.day, value: startMoment.day)
+            result.start.assign(.month, value: startMoment.month)
+            result.start.assign(.year, value: startMoment.year)
         }
         
         var hour = 0
@@ -238,9 +238,9 @@ public class HansTimeExpressionParser: Parser {
             result.start.assign(.meridiem, value: meridiem)
         } else {
             if hour < 12 {
-                result.start.imply(.meridiem, to: 0)
+                result.start.assign(.meridiem, value: 0)
             } else {
-                result.start.imply(.meridiem, to: 1)
+                result.start.assign(.meridiem, value: 1)
             }
         }
         
@@ -307,9 +307,9 @@ public class HansTimeExpressionParser: Parser {
             result.start.assign(.month, value: startMoment.month)
             result.start.assign(.year, value: startMoment.year)
         } else {
-            result.start.imply(.day, to: startMoment.day)
-            result.start.imply(.month, to: startMoment.month)
-            result.start.imply(.year, to: startMoment.year)
+            result.start.assign(.day, value: startMoment.day)
+            result.start.assign(.month, value: startMoment.month)
+            result.start.assign(.year, value: startMoment.year)
         }
         
         hour = 0
@@ -379,14 +379,14 @@ public class HansTimeExpressionParser: Parser {
             
             if !result.start.isCertain(component: .meridiem) {
                 if meridiem == 0 {
-                    result.start.imply(.meridiem, to: 0)
+                    result.start.assign(.meridiem, value: 0)
                     
                     if result.start[.hour] == 12 {
                         result.start.assign(.hour, value: 0)
                     }
                     
                 } else {
-                    result.start.imply(.meridiem, to: 1)
+                    result.start.assign(.meridiem, value: 1)
                     
                     if result.start[.hour] != 12 {
                         result.start.assign(.hour, value: result.start[.hour]! + 12)
