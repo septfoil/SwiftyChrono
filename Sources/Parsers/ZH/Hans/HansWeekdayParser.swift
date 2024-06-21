@@ -25,9 +25,7 @@ public class HansWeekdayParser: Parser {
         var result = ParsedResult(ref: ref, index: index, text: matchText)
         
         let dayOfWeek = match.string(from: text, atRangeIndex: weekdayGroup)
-        guard let offset = ZH_WEEKDAY_OFFSET[dayOfWeek] else {
-            return nil
-        }
+        let offset = ZH_WEEKDAY_OFFSET[dayOfWeek] ?? 0
         
         var modifier = ""
         let prefix = match.isNotEmpty(atRangeIndex: prefixGroup) ? match.string(from: text, atRangeIndex: prefixGroup) : ""
