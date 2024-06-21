@@ -38,7 +38,8 @@ let ZH_WEEKDAY_OFFSET = [
     "三": 3,
     "四": 4,
     "五": 5,
-    "六": 6
+    "六": 6,
+    "1": 1
 ]
 
 let ZH_WEEKDAY_OFFSET_PATTERN = "[" + ZH_WEEKDAY_OFFSET.keys.joined(separator: "") + "]"
