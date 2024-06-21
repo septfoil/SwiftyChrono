@@ -8,10 +8,16 @@
 import Foundation
 
 private let PATTERN =
-"(上|今|本|下|这)?(?:個|个)?(?:周|星期|礼拜)(?:\(ZH_WEEKDAY_OFFSET_PATTERN))?|(周|星期|礼拜)(\(ZH_WEEKDAY_OFFSET_PATTERN))"
+"(上|今|本|下|这)" +
+"(?:個|个)?" +
+"(?:周|星期|礼拜)" +
+"(?:\(ZH_WEEKDAY_OFFSET_PATTERN))?|" +
+"(周|星期|礼拜)" +
+"(\(ZH_WEEKDAY_OFFSET_PATTERN))"
 
 private let prefixGroup = 1
-private let weekdayGroup = 2
+private let weekdayGroup = 4
+private let weekdayGroup2 = 6
 
 public class HansWeekdayParser: Parser {
     override var pattern: String { return PATTERN }
@@ -21,7 +27,10 @@ public class HansWeekdayParser: Parser {
         let (matchText, index) = matchTextAndIndexForCHHant(from: text, andMatchResult: match)
         var result = ParsedResult(ref: ref, index: index, text: matchText)
         
-        let dayOfWeek = match.string(from: text, atRangeIndex: weekdayGroup)
+        var dayOfWeek = match.string(from: text, atRangeIndex: weekdayGroup)
+        if dayOfWeek.isEmpty {
+            dayOfWeek = match.string(from: text, atRangeIndex: weekdayGroup2)
+        }
         let offset = ZH_WEEKDAY_OFFSET[dayOfWeek] ?? 1
         
         var modifier = ""
