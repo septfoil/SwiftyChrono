@@ -34,10 +34,10 @@ public class HansCasualDateParser: Parser {
         var startMoment = refMoment
         
         if match.isNotEmpty(atRangeIndex: nowGroup) {
-            result.start.imply(.hour, to: refMoment.hour)
-            result.start.imply(.minute, to: refMoment.minute)
-            result.start.imply(.second, to: refMoment.second)
-            result.start.imply(.millisecond, to: refMoment.millisecond)
+            result.start.assign(.hour, value: refMoment.hour)
+            result.start.assign(.minute, value: refMoment.minute)
+            result.start.assign(.second, value: refMoment.second)
+            result.start.assign(.millisecond, value: refMoment.millisecond)
         } else if match.isNotEmpty(atRangeIndex: dayGroup1) {
             let day1 = match.string(from: text, atRangeIndex: dayGroup1)
             let time1 = match.string(from: text, atRangeIndex: timeGroup1)
