@@ -17,6 +17,7 @@ private let PATTERN =
 
 private let prefixGroup = 1
 private let weekdayGroup = 4
+private let fixedWeekGroup = 5
 private let weekdayGroup2 = 6
 
 public class HansWeekdayParser: Parser {
@@ -26,12 +27,14 @@ public class HansWeekdayParser: Parser {
     override public func extract(text: String, ref: Date, match: NSTextCheckingResult, opt: [OptionType: Int]) -> ParsedResult? {
         let (matchText, index) = matchTextAndIndexForCHHant(from: text, andMatchResult: match)
         var result = ParsedResult(ref: ref, index: index, text: matchText)
-        
-        var dayOfWeek = match.string(from: text, atRangeIndex: weekdayGroup)
-        if dayOfWeek.isEmpty {
-            dayOfWeek = match.string(from: text, atRangeIndex: weekdayGroup2)
+        var offset = 1
+        if match.isNotEmpty(atRangeIndex: prefixGroup) {
+            offset = ZH_WEEKDAY_OFFSET[match.string(from: text, atRangeIndex: weekdayGroup)] ?? 1
+        } else if match.isNotEmpty(atRangeIndex: fixedWeekGroup) {
+            offset = ZH_WEEKDAY_OFFSET[match.string(from: text, atRangeIndex: weekdayGroup2)] ?? 1
+        } else {
+            return nil
         }
-        let offset = ZH_WEEKDAY_OFFSET[dayOfWeek] ?? 1
         
         var modifier = ""
         let prefix = match.isNotEmpty(atRangeIndex: prefixGroup) ? match.string(from: text, atRangeIndex: prefixGroup) : ""
