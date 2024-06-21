@@ -29,7 +29,7 @@ public struct Chrono {
     public static var preferredLanguage: Language? = nil
     
     /// you can set default imply hour
-    public static var defaultImpliedHour: Int = 12
+    public static var defaultImpliedHour: Int = 9
     /// you can set default imply minute
     public static var defaultImpliedMinute: Int = 0
     /// you can set default imply second

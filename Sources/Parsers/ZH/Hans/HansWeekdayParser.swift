@@ -1,23 +1,22 @@
 //
-//  ZHWeekdayParser.swift
-//  SwiftyChrono
+//  File.swift
+//  
 //
-//  Created by Jerry Chen on 2/18/17.
-//  Copyright © 2017 Potix. All rights reserved.
+//  Created by yefei on 2024/6/21.
 //
 
 import Foundation
 
 private let PATTERN =
-    "(上|今|下|這|呢|这)?" +
-    "(?:個|个)?" +
-    "(?:周|星期|禮拜|礼拜)" +
-    "(\(ZH_WEEKDAY_OFFSET_PATTERN))"
+"(上|今|下|这)?" +
+"(?:個|个)?" +
+"(?:周|星期|礼拜)" +
+"(\(ZH_WEEKDAY_OFFSET_PATTERN))"
 
 private let prefixGroup = 1
 private let weekdayGroup = 2
 
-public class ZHWeekdayParser: Parser {
+public class HansWeekdayParser: Parser {
     override var pattern: String { return PATTERN }
     override var language: Language { return .chinese }
     
@@ -37,7 +36,7 @@ public class ZHWeekdayParser: Parser {
             modifier = "last"
         } else if prefix == "下" {
             modifier = "next"
-        } else if prefix == "今" || prefix == "這" || prefix == "呢" || prefix == "这" {
+        } else if prefix == "今" || prefix == "这" {
             modifier = "this"
         }
         

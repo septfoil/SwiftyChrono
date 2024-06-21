@@ -10,6 +10,7 @@ import Foundation
 
 let ZH_NUMBER = [
     "零": 0,
+    "〇": 0,
     "一": 1,
     "二": 2,
     "兩": 2,

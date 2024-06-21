@@ -23,7 +23,7 @@ public class ENCasualDateParser: Parser {
         
         if lowerText == "tonight" {
             // Normally means this coming midnight
-            result.start.imply(.hour, to: 22)
+            result.start.assign(.hour, value: opt[.evening] ?? 21)
             result.start.imply(.meridiem, to: 1)
             
         } else if NSRegularExpression.isMatch(forPattern: "^tomorrow|^tmr", in: lowerText) {
@@ -39,10 +39,10 @@ public class ENCasualDateParser: Parser {
                 startMoment = startMoment.added(-1, .day)
             }
         } else if NSRegularExpression.isMatch(forPattern: "now", in: lowerText) {
-            result.start.imply(.hour, to: refMoment.hour)
-            result.start.imply(.minute, to: refMoment.minute)
-            result.start.imply(.second, to: refMoment.second)
-            result.start.imply(.millisecond, to: refMoment.millisecond)
+            result.start.assign(.hour, value: refMoment.hour)
+            result.start.assign(.minute, value: refMoment.minute)
+            result.start.assign(.second, value: refMoment.second)
+            result.start.assign(.millisecond, value: refMoment.millisecond)
         }
         
         result.start.assign(.day, value: startMoment.day)

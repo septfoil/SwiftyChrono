@@ -30,6 +30,7 @@ private func baseOption(strictMode: Bool) -> ModeOptio {
         ENSlashDateFormatStartWithYearParser(strictMode: strictMode),
         ENSlashMonthFormatParser(strictMode: strictMode),
         ENTimeAgoFormatParser(strictMode: strictMode),
+        ENTimeLaterFormatParser(strictMode: strictMode),
         ENTimeExpressionParser(strictMode: strictMode),
         
         // JP
@@ -56,12 +57,12 @@ private func baseOption(strictMode: Bool) -> ModeOptio {
         DETimeAgoFormatParser(strictMode: strictMode),
         DETimeExpressionParser(strictMode: strictMode),
         
-        // ZH-Hant
-        ZHCasualDateParser(strictMode: strictMode),
-        ZHDateParser(strictMode: strictMode),
-        ZHDeadlineFormatParser(strictMode: strictMode),
-        ZHTimeExpressionParser(strictMode: strictMode),
-        ZHWeekdayParser(strictMode: strictMode),
+        // ZH-Hans
+        HansCasualDateParser(strictMode: strictMode),
+        HansDateParser(strictMode: strictMode),
+        HansDeadlineFormatParser(strictMode: strictMode),
+        HansTimeExpressionParser(strictMode: strictMode),
+        HansWeekdayParser(strictMode: strictMode),
         
         // RU
         RUDeadlineFormatParser(strictMode: strictMode),

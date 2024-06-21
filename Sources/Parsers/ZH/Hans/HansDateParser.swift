@@ -1,31 +1,30 @@
 //
-//  ZHHantDateParser.swift
-//  SwiftyChrono
+//  File.swift
+//  
 //
-//  Created by Jerry Chen on 2/18/17.
-//  Copyright © 2017 Potix. All rights reserved.
+//  Created by yefei on 2024/6/21.
 //
 
 import Foundation
 
 private let PATTERN =
-    "(\\d{2,4}|\(ZH_NUMBER_PATTERN){2,4})?" +
-    "(?:\\s*)" +
-    "(?:年)?" +
-    "(?:[\\s|,|，]*)" +
-    "(\\d{1,2}|\(ZH_NUMBER_PATTERN){1,2})" +
-    "(?:\\s*)" +
-    "(?:月)" +
-    "(?:\\s*)" +
-    "(\\d{1,2}|\(ZH_NUMBER_PATTERN){1,2})?" +
-    "(?:\\s*)" +
-    "(?:日|號|号)?"
+"(\\d{2,4}|\(ZH_NUMBER_PATTERN){2,4})?" +
+"(?:\\s*)" +
+"(?:年)?" +
+"(?:[\\s|,|，]*)" +
+"(\\d{1,2}|\(ZH_NUMBER_PATTERN){1,2})" +
+"(?:\\s*)" +
+"(?:月)" +
+"(?:\\s*)" +
+"(\\d{1,2}|\(ZH_NUMBER_PATTERN){1,2})?" +
+"(?:\\s*)" +
+"(?:日|号)?"
 
 private let yearGroup = 1
 private let monthGroup = 2
 private let dayGroup = 3
 
-public class ZHDateParser: Parser {
+public class HansDateParser: Parser {
     override var pattern: String { return PATTERN }
     override var language: Language { return .chinese }
     
