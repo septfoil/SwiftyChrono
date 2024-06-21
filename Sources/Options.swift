@@ -107,7 +107,7 @@ public func casualModeOption() -> ModeOptio {
     options.parsers.insert(contentsOf: [
         // ZH-Hans
         HansWeekdayParser(strictMode: false),
-        HansCasualDateParser(strictMode: false),
+//        HansCasualDateParser(strictMode: false),
         HansDateParser(strictMode: false),
         HansDeadlineFormatParser(strictMode: false),
         HansTimeExpressionParser(strictMode: false),
