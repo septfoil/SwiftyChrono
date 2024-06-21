@@ -18,7 +18,7 @@ public struct ModeOptio {
     }
 }
 
-public func baseOption(strictMode: Bool) -> ModeOptio {
+private func baseOption(strictMode: Bool) -> ModeOptio {
     return ModeOptio(parsers: [
         // EN
         ENISOFormatParser(strictMode: strictMode),
@@ -105,11 +105,28 @@ public func casualModeOption() -> ModeOptio {
     var options = baseOption(strictMode: false)
     
     options.parsers.insert(contentsOf: [
+        // ZH-Hans
+        HansCasualDateParser(strictMode: false),
+        HansDateParser(strictMode: false),
+        HansDeadlineFormatParser(strictMode: false),
+        HansTimeExpressionParser(strictMode: false),
+        HansWeekdayParser(strictMode: false),
+        
         // EN
+        ENISOFormatParser(strictMode: false),
+        ENSlashDateFormatParser(strictMode: false),
+        ENSlashDateFormatStartWithYearParser(strictMode: false),
+        ENTimeAgoFormatParser(strictMode: false),
+        ENTimeExpressionParser(strictMode: false),
+        ENTimeLaterFormatParser(strictMode: false),
+        ENWeekdayParser(strictMode: false),
         ENCasualTimeParser(strictMode: false),
         ENCasualDateParser(strictMode: false),
         ENWeekdayParser(strictMode: false),
         ENRelativeDateFormatParser(strictMode: false),
+        ENMonthNameParser(strictMode: false),
+        ENDeadlineFormatParser(strictMode: false),
+        
         
         // JP
         JPCasualDateParser(strictMode: false),
@@ -132,6 +149,7 @@ public func casualModeOption() -> ModeOptio {
         RUCasualTimeParser(strictMode: false),
         RUCasualDateParser(strictMode: false),
         RUWeekdayParser(strictMode: false),
+        
         
     ], at: 0)
     
