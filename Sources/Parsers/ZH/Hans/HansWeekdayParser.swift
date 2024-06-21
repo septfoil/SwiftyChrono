@@ -10,7 +10,7 @@ import Foundation
 private let PATTERN =
 "(上|今|本|下|这)" +
 "(?:個|个)?" +
-"(?:周|星期|礼拜)" +
+"(周|星期|礼拜)" +
 "(?:\(ZH_WEEKDAY_OFFSET_PATTERN))?|" +
 "(周|星期|礼拜)" +
 "(\(ZH_WEEKDAY_OFFSET_PATTERN))"
@@ -29,9 +29,13 @@ public class HansWeekdayParser: Parser {
         var result = ParsedResult(ref: ref, index: index, text: matchText)
         var offset = 1
         if match.isNotEmpty(atRangeIndex: prefixGroup) {
-            offset = ZH_WEEKDAY_OFFSET[match.string(from: text, atRangeIndex: weekdayGroup)] ?? 1
+            if match.isNotEmpty(atRangeIndex: weekdayGroup) {
+                offset = ZH_WEEKDAY_OFFSET[match.string(from: text, atRangeIndex: weekdayGroup)] ?? 1
+            }
         } else if match.isNotEmpty(atRangeIndex: fixedWeekGroup) {
-            offset = ZH_WEEKDAY_OFFSET[match.string(from: text, atRangeIndex: weekdayGroup2)] ?? 1
+            if match.isNotEmpty(atRangeIndex: weekdayGroup2) {
+                offset = ZH_WEEKDAY_OFFSET[match.string(from: text, atRangeIndex: weekdayGroup2)] ?? 1
+            }
         } else {
             return nil
         }
