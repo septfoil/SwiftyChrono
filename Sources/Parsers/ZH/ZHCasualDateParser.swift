@@ -12,7 +12,7 @@ private let PATTERN =
     "(而家|立(?:刻|即)|即刻)|" +
     "(今|明|聽|昨|尋|琴)(早|朝|晚)|" +
     "(上(?:午|晝)|朝(?:早)|早(?:上)|下(?:午|晝)|晏(?:晝)|晚(?:上)|夜(?:晚)?|中(?:午)|凌(?:晨))|" +
-    "(今|明|聽|昨|尋|琴)(?:日|天)" +
+    "(今|明|后|聽|昨|尋|琴)(?:日|天)" +
     "(?:[\\s|,|，]*)" +
     "(?:(上(?:午|晝)|朝(?:早)|早(?:上)|下(?:午|晝)|晏(?:晝)|晚(?:上)|夜(?:晚)?|中(?:午)|凌(?:晨)))?"
 
@@ -48,6 +48,8 @@ public class ZHCasualDateParser: Parser {
                 if refMoment.hour > 1 {
                     startMoment = startMoment.added(1, .day)
                 }
+            } else if day1 == "后" {
+                startMoment = startMoment.added(refMoment.hour > 1 ? 2 : 1, .day)
             } else if day1 == "昨" || day1 == "尋" || day1 == "琴" {
                 startMoment = startMoment.added(-1, .day)
             }
