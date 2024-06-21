@@ -11,7 +11,7 @@ private let PATTERN =
 "(上|今|下|这)?" +
 "(?:個|个)?" +
 "(?:周|星期|礼拜)" +
-"(?:\(ZH_WEEKDAY_OFFSET_PATTERN))"
+"(\(ZH_WEEKDAY_OFFSET_PATTERN)?)"
 
 private let prefixGroup = 1
 private let weekdayGroup = 2
