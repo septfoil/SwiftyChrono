@@ -18,7 +18,7 @@ public struct ModeOptio {
     }
 }
 
-private func baseOption(strictMode: Bool) -> ModeOptio {
+public func baseOption(strictMode: Bool) -> ModeOptio {
     return ModeOptio(parsers: [
         // EN
         ENISOFormatParser(strictMode: strictMode),
