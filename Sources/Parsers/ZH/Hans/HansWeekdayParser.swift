@@ -8,7 +8,7 @@
 import Foundation
 
 private let PATTERN =
-"(?:(上|今|本|下|这)个?(周|星期|礼拜)|(周|星期|礼拜)(\(ZH_WEEKDAY_OFFSET_PATTERN)))"
+"(上|今|本|下|这)?(?:個|个)?(?:周|星期|礼拜)(?:\(ZH_WEEKDAY_OFFSET_PATTERN))?|(周|星期|礼拜)(\(ZH_WEEKDAY_OFFSET_PATTERN))"
 
 private let prefixGroup = 1
 private let weekdayGroup = 2
