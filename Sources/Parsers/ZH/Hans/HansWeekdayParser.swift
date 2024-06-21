@@ -13,7 +13,7 @@ private let PATTERN =
 "(?:周|星期|礼拜)" +
 "(\(ZH_WEEKDAY_OFFSET_PATTERN))?" +
 "(?:[\\s|,|，]*)" +
-"(?:(上(?:午)|早(?:上)|下(?:午)|晚(?:上)|夜(?:晚)?|中(?:午)|凌(?:晨)))?｜" +
+"(?:(上(?:午)|早(?:上)|下(?:午)|晚(?:上)|夜(?:晚)?|中(?:午)|凌(?:晨)))｜" +
 "(?:周|星期|礼拜)" +
 "(\(ZH_WEEKDAY_OFFSET_PATTERN))"
 
@@ -32,7 +32,9 @@ public class HansWeekdayParser: Parser {
         var offset = 0
         if match.isNotEmpty(atRangeIndex: weekdayGroup1) {
             offset = ZH_WEEKDAY_OFFSET[match.string(from: text, atRangeIndex: weekdayGroup1)] ?? 1
+            print("not empty")
             if match.isNotEmpty(atRangeIndex: timeGroup1) {
+                print("time group: \(timeGroup1)")
                 setTime(text: text, match: match, index: timeGroup1, opt: opt, result: &result)
             }
         } else if match.isNotEmpty(atRangeIndex: weekdayGroup2) {
