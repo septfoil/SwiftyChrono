@@ -248,215 +248,215 @@ public class HansTimeExpressionParser: Parser {
         //                  Extracting the "to" chunk
         // ==============================================================
         
-        let regex = try? NSRegularExpression(pattern: SECOND_REG_PATTERN, options: .caseInsensitive)
-        let secondText = text.substring(from: result.index + result.text.count)
-        guard let match = regex?.firstMatch(in: secondText, range: NSRange(location: 0, length: secondText.count)) else {
-            // Not accept number only result
-            if NSRegularExpression.isMatch(forPattern: "^\\d+$", in: result.text) {
-                return nil
-            }
-            
-            return result
-        }
-        matchText = match.string(from: secondText, atRangeIndex: 0)
+//        let regex = try? NSRegularExpression(pattern: SECOND_REG_PATTERN, options: .caseInsensitive)
+//        let secondText = text.substring(from: result.index + result.text.count)
+//        guard let match = regex?.firstMatch(in: secondText, range: NSRange(location: 0, length: secondText.count)) else {
+//            // Not accept number only result
+//            if NSRegularExpression.isMatch(forPattern: "^\\d+$", in: result.text) {
+//                return nil
+//            }
+//            
+//            return result
+//        }
+//        matchText = match.string(from: secondText, atRangeIndex: 0)
+//        
+//        var endMoment = startMoment
+//        result.end = ParsedComponents(components: nil, ref: nil)
+//        
+//        // ----- Day
+//        if match.isNotEmpty(atRangeIndex: dayGroup1) {
+//            let day1 = match.string(from: text, atRangeIndex: dayGroup1)
+//            if (day1 == "明") {
+//                // Check not "Tomorrow" on late night
+//                if (refMoment.hour > 1) {
+//                    startMoment = startMoment.added(1, .day);
+//                }
+//            } else if (day1 == "昨") {
+//                startMoment = startMoment.added(-1, .day);
+//            } else if (day1 == "前") {
+//                startMoment = startMoment.added(-2, .day);
+//            } else if (day1 == "大前") {
+//                startMoment = startMoment.added(-3, .day);
+//            } else if (day1 == "后") {
+//                startMoment = startMoment.added(2, .day);
+//            } else if (day1 == "大后") {
+//                startMoment = startMoment.added(3, .day);
+//            }
+//            result.start.assign(.day, value: startMoment.day)
+//            result.start.assign(.month, value: startMoment.month)
+//            result.start.assign(.year, value: startMoment.year)
+//        } else if match.isNotEmpty(atRangeIndex: dayGroup3) {
+//            let day3 = match.string(from: text, atRangeIndex: dayGroup1)
+//            if (day3 == "明") {
+//                // Check not "Tomorrow" on late night
+//                if (refMoment.hour > 1) {
+//                    startMoment = startMoment.added(1, .day);
+//                }
+//            } else if (day3 == "昨") {
+//                startMoment = startMoment.added(-1, .day);
+//            } else if (day3 == "前") {
+//                startMoment = startMoment.added(-2, .day);
+//            } else if (day3 == "大前") {
+//                startMoment = startMoment.added(-3, .day);
+//            } else if (day3 == "后") {
+//                startMoment = startMoment.added(2, .day);
+//            } else if (day3 == "大后") {
+//                startMoment = startMoment.added(3, .day);
+//            }
+//            result.start.assign(.day, value: startMoment.day)
+//            result.start.assign(.month, value: startMoment.month)
+//            result.start.assign(.year, value: startMoment.year)
+//        } else {
+//            result.start.assign(.day, value: startMoment.day)
+//            result.start.assign(.month, value: startMoment.month)
+//            result.start.assign(.year, value: startMoment.year)
+//        }
+//        
+//        hour = 0
+//        minute = 0
+//        meridiem = -1
+//        
+//        // ----- Second
+//        if match.isNotEmpty(atRangeIndex: secondGroup) {
+//            let secondString = match.string(from: secondText, atRangeIndex: secondGroup)
+//            let second = NSRegularExpression.isMatch(forPattern: "\\d+", in: secondString) ? Int(secondString)! : ZHStringToNumber(text: secondString)
+//            
+//            if second >= 60 {
+//                return nil
+//            }
+//            result.end!.assign(.second, value: second)
+//        }
+//        
+//        hourString = match.string(from: secondText, atRangeIndex: hourGroup)
+//        hour = NSRegularExpression.isMatch(forPattern: "\\d+", in: hourString) ? Int(hourString)! : ZHStringToNumber(text: hourString)
+//        
+//        // ----- Minutes
+//        if match.isNotEmpty(atRangeIndex: minuteGroup) {
+//            let minuteString = match.string(from: secondText, atRangeIndex: minuteGroup)
+//            
+//            if minuteString == "半" {
+//                minute = 30
+//            } else if minuteString == "正" || minuteString == "整" {
+//                minute = 0
+//            } else {
+//                minute = NSRegularExpression.isMatch(forPattern: "\\d+", in: minuteString) ? Int(minuteString)! : ZHStringToNumber(text: minuteString)
+//            }
+//        } else if hour > 100 {
+//            minute = hour % 100;
+//            hour = hour / 100
+//        }
+//        
+//        if minute >= 60 {
+//            return nil
+//        }
+//        
+//        if hour > 24 {
+//            return nil
+//        }
+//        if hour >= 12 {
+//            meridiem = 1
+//        }
+//        
+//        // ----- AM & PM
+//        if match.isNotEmpty(atRangeIndex: amPmHourGroup) {
+//            if hour > 12 {
+//                return nil
+//            }
+//            let ampm = match.string(from: secondText, atRangeIndex: amPmHourGroup).firstString?.lowercased() ?? ""
+//            if ampm == "a" {
+//                meridiem = 0
+//                if hour == 12 {
+//                    hour = 0
+//                }
+//            }
+//            
+//            if ampm == "p" {
+//                meridiem = 1
+//                if hour != 12 {
+//                    hour += 12
+//                }
+//            }
+//            
+//            if !result.start.isCertain(component: .meridiem) {
+//                if meridiem == 0 {
+//                    result.start.assign(.meridiem, value: 0)
+//                    
+//                    if result.start[.hour] == 12 {
+//                        result.start.assign(.hour, value: 0)
+//                    }
+//                    
+//                } else {
+//                    result.start.assign(.meridiem, value: 1)
+//                    
+//                    if result.start[.hour] != 12 {
+//                        result.start.assign(.hour, value: result.start[.hour]! + 12)
+//                    }
+//                }
+//            }
+//            
+//        } else if match.isNotEmpty(atRangeIndex: zhAmPmHourGroup1) {
+//            let zhAMPMString1 = match.string(from: secondText, atRangeIndex: zhAmPmHourGroup1)
+//            let zhAMPM1 = zhAMPMString1.firstString ?? ""
+//            if zhAMPM1 == "早" {
+//                meridiem = 0
+//                if hour == 12 {
+//                    hour = 0
+//                }
+//            } else if zhAMPM1 == "晚" {
+//                meridiem = 1
+//                if hour != 12 {
+//                    hour += 12
+//                }
+//            }
+//        } else if match.isNotEmpty(atRangeIndex: zhAmPmHourGroup2) {
+//            let zhAMPMString2 = match.string(from: secondText, atRangeIndex: zhAmPmHourGroup2)
+//            let zhAMPM2 = zhAMPMString2.firstString ?? ""
+//            if zhAMPM2 == "上" || zhAMPM2 == "早" || zhAMPM2 == "凌" {
+//                meridiem = 0
+//                if hour == 12 {
+//                    hour = 0
+//                }
+//            } else if zhAMPM2 == "下" || zhAMPM2 == "晚" {
+//                meridiem = 1
+//                if hour != 12 {
+//                    hour += 12
+//                }
+//            }
+//        } else if match.isNotEmpty(atRangeIndex: zhAmPmHourGroup3) {
+//            let zhAMPMString3 = match.string(from: secondText, atRangeIndex: zhAmPmHourGroup3)
+//            let zhAMPM3 = zhAMPMString3.firstString ?? ""
+//            if zhAMPM3 == "上" || zhAMPM3 == "早" || zhAMPM3 == "凌" {
+//                meridiem = 0
+//                if hour == 12 {
+//                    hour = 0
+//                }
+//            } else if zhAMPM3 == "下" || zhAMPM3 == "晚" {
+//                meridiem = 1
+//                if hour != 12 {
+//                    hour += 12
+//                }
+//            }
+//        }
+//        
+//        result.text = result.text + match.string(from: secondText, atRangeIndex: 0)
+//        result.end!.assign(.hour, value: hour)
+//        result.end!.assign(.minute, value: minute)
+//        if meridiem >= 0 {
+//            result.end!.assign(.meridiem, value: meridiem)
+//        } else {
+//            let startAtPM = result.start.isCertain(component: .meridiem) && result.start[.meridiem] == 1
+//            if startAtPM && result.start[.hour]! > hour {
+//                // 10pm - 1 (am)
+//                result.end!.imply(.meridiem, to: 0)
+//                
+//            } else if hour > 12 {
+//                result.end!.imply(.meridiem, to: 1)
+//            }
+//        }
         
-        var endMoment = startMoment
-        result.end = ParsedComponents(components: nil, ref: nil)
-        
-        // ----- Day
-        if match.isNotEmpty(atRangeIndex: dayGroup1) {
-            let day1 = match.string(from: text, atRangeIndex: dayGroup1)
-            if (day1 == "明") {
-                // Check not "Tomorrow" on late night
-                if (refMoment.hour > 1) {
-                    startMoment = startMoment.added(1, .day);
-                }
-            } else if (day1 == "昨") {
-                startMoment = startMoment.added(-1, .day);
-            } else if (day1 == "前") {
-                startMoment = startMoment.added(-2, .day);
-            } else if (day1 == "大前") {
-                startMoment = startMoment.added(-3, .day);
-            } else if (day1 == "后") {
-                startMoment = startMoment.added(2, .day);
-            } else if (day1 == "大后") {
-                startMoment = startMoment.added(3, .day);
-            }
-            result.start.assign(.day, value: startMoment.day)
-            result.start.assign(.month, value: startMoment.month)
-            result.start.assign(.year, value: startMoment.year)
-        } else if match.isNotEmpty(atRangeIndex: dayGroup3) {
-            let day3 = match.string(from: text, atRangeIndex: dayGroup1)
-            if (day3 == "明") {
-                // Check not "Tomorrow" on late night
-                if (refMoment.hour > 1) {
-                    startMoment = startMoment.added(1, .day);
-                }
-            } else if (day3 == "昨") {
-                startMoment = startMoment.added(-1, .day);
-            } else if (day3 == "前") {
-                startMoment = startMoment.added(-2, .day);
-            } else if (day3 == "大前") {
-                startMoment = startMoment.added(-3, .day);
-            } else if (day3 == "后") {
-                startMoment = startMoment.added(2, .day);
-            } else if (day3 == "大后") {
-                startMoment = startMoment.added(3, .day);
-            }
-            result.start.assign(.day, value: startMoment.day)
-            result.start.assign(.month, value: startMoment.month)
-            result.start.assign(.year, value: startMoment.year)
-        } else {
-            result.start.assign(.day, value: startMoment.day)
-            result.start.assign(.month, value: startMoment.month)
-            result.start.assign(.year, value: startMoment.year)
-        }
-        
-        hour = 0
-        minute = 0
-        meridiem = -1
-        
-        // ----- Second
-        if match.isNotEmpty(atRangeIndex: secondGroup) {
-            let secondString = match.string(from: secondText, atRangeIndex: secondGroup)
-            let second = NSRegularExpression.isMatch(forPattern: "\\d+", in: secondString) ? Int(secondString)! : ZHStringToNumber(text: secondString)
-            
-            if second >= 60 {
-                return nil
-            }
-            result.end!.assign(.second, value: second)
-        }
-        
-        hourString = match.string(from: secondText, atRangeIndex: hourGroup)
-        hour = NSRegularExpression.isMatch(forPattern: "\\d+", in: hourString) ? Int(hourString)! : ZHStringToNumber(text: hourString)
-        
-        // ----- Minutes
-        if match.isNotEmpty(atRangeIndex: minuteGroup) {
-            let minuteString = match.string(from: secondText, atRangeIndex: minuteGroup)
-            
-            if minuteString == "半" {
-                minute = 30
-            } else if minuteString == "正" || minuteString == "整" {
-                minute = 0
-            } else {
-                minute = NSRegularExpression.isMatch(forPattern: "\\d+", in: minuteString) ? Int(minuteString)! : ZHStringToNumber(text: minuteString)
-            }
-        } else if hour > 100 {
-            minute = hour % 100;
-            hour = hour / 100
-        }
-        
-        if minute >= 60 {
-            return nil
-        }
-        
-        if hour > 24 {
-            return nil
-        }
-        if hour >= 12 {
-            meridiem = 1
-        }
-        
-        // ----- AM & PM
-        if match.isNotEmpty(atRangeIndex: amPmHourGroup) {
-            if hour > 12 {
-                return nil
-            }
-            let ampm = match.string(from: secondText, atRangeIndex: amPmHourGroup).firstString?.lowercased() ?? ""
-            if ampm == "a" {
-                meridiem = 0
-                if hour == 12 {
-                    hour = 0
-                }
-            }
-            
-            if ampm == "p" {
-                meridiem = 1
-                if hour != 12 {
-                    hour += 12
-                }
-            }
-            
-            if !result.start.isCertain(component: .meridiem) {
-                if meridiem == 0 {
-                    result.start.assign(.meridiem, value: 0)
-                    
-                    if result.start[.hour] == 12 {
-                        result.start.assign(.hour, value: 0)
-                    }
-                    
-                } else {
-                    result.start.assign(.meridiem, value: 1)
-                    
-                    if result.start[.hour] != 12 {
-                        result.start.assign(.hour, value: result.start[.hour]! + 12)
-                    }
-                }
-            }
-            
-        } else if match.isNotEmpty(atRangeIndex: zhAmPmHourGroup1) {
-            let zhAMPMString1 = match.string(from: secondText, atRangeIndex: zhAmPmHourGroup1)
-            let zhAMPM1 = zhAMPMString1.firstString ?? ""
-            if zhAMPM1 == "早" {
-                meridiem = 0
-                if hour == 12 {
-                    hour = 0
-                }
-            } else if zhAMPM1 == "晚" {
-                meridiem = 1
-                if hour != 12 {
-                    hour += 12
-                }
-            }
-        } else if match.isNotEmpty(atRangeIndex: zhAmPmHourGroup2) {
-            let zhAMPMString2 = match.string(from: secondText, atRangeIndex: zhAmPmHourGroup2)
-            let zhAMPM2 = zhAMPMString2.firstString ?? ""
-            if zhAMPM2 == "上" || zhAMPM2 == "早" || zhAMPM2 == "凌" {
-                meridiem = 0
-                if hour == 12 {
-                    hour = 0
-                }
-            } else if zhAMPM2 == "下" || zhAMPM2 == "晚" {
-                meridiem = 1
-                if hour != 12 {
-                    hour += 12
-                }
-            }
-        } else if match.isNotEmpty(atRangeIndex: zhAmPmHourGroup3) {
-            let zhAMPMString3 = match.string(from: secondText, atRangeIndex: zhAmPmHourGroup3)
-            let zhAMPM3 = zhAMPMString3.firstString ?? ""
-            if zhAMPM3 == "上" || zhAMPM3 == "早" || zhAMPM3 == "凌" {
-                meridiem = 0
-                if hour == 12 {
-                    hour = 0
-                }
-            } else if zhAMPM3 == "下" || zhAMPM3 == "晚" {
-                meridiem = 1
-                if hour != 12 {
-                    hour += 12
-                }
-            }
-        }
-        
-        result.text = result.text + match.string(from: secondText, atRangeIndex: 0)
-        result.end!.assign(.hour, value: hour)
-        result.end!.assign(.minute, value: minute)
-        if meridiem >= 0 {
-            result.end!.assign(.meridiem, value: meridiem)
-        } else {
-            let startAtPM = result.start.isCertain(component: .meridiem) && result.start[.meridiem] == 1
-            if startAtPM && result.start[.hour]! > hour {
-                // 10pm - 1 (am)
-                result.end!.imply(.meridiem, to: 0)
-                
-            } else if hour > 12 {
-                result.end!.imply(.meridiem, to: 1)
-            }
-        }
-        
-        if (result.end!.date.timeIntervalSince1970 < result.start.date.timeIntervalSince1970) {
-            result.end!.imply(.day, to: result.end![.day]! + 1)
-        }
+//        if (result.end!.date.timeIntervalSince1970 < result.start.date.timeIntervalSince1970) {
+//            result.end!.imply(.day, to: result.end![.day]! + 1)
+//        }
         
         return result;
     }
