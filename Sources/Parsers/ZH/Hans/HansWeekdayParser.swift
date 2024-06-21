@@ -7,11 +7,7 @@
 
 import Foundation
 
-private let PATTERN =
-"(上|今|下|这)?" +
-"(?:個|个)?" +
-"(?:周|星期|礼拜)" +
-"(\(ZH_WEEKDAY_OFFSET_PATTERN)?)"
+private let PATTERN = "((?:上|今|本|下|这)周|(?:周|星期|礼拜)(?:\(ZH_WEEKDAY_OFFSET_PATTERN)))"
 
 private let prefixGroup = 1
 private let weekdayGroup = 2
@@ -34,7 +30,7 @@ public class HansWeekdayParser: Parser {
             modifier = "last"
         } else if prefix == "下" {
             modifier = "next"
-        } else if prefix == "今" || prefix == "这" {
+        } else if prefix == "今" || prefix == "这" || prefix == "本" {
             modifier = "this"
         }
         
