@@ -30,8 +30,9 @@ let ZH_NUMBER = [
 let ZH_NUMBER_PATTERN = "[" + ZH_NUMBER.keys.joined(separator: "") + "]"
 
 let ZH_WEEKDAY_OFFSET = [
-    "天": 0,
-    "日": 0,
+    "天": 7,
+    "末": 7,
+    "日": 7,
     "一": 1,
     "二": 2,
     "三": 3,

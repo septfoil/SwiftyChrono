@@ -26,7 +26,7 @@ public class HansWeekdayParser: Parser {
     override public func extract(text: String, ref: Date, match: NSTextCheckingResult, opt: [OptionType: Int]) -> ParsedResult? {
         let (matchText, index) = matchTextAndIndexForCHHant(from: text, andMatchResult: match)
         var result = ParsedResult(ref: ref, index: index, text: matchText)
-        var offset = 1
+        var offset = 0
         if match.isNotEmpty(atRangeIndex: weekdayGroup1) {
             offset = ZH_WEEKDAY_OFFSET[match.string(from: text, atRangeIndex: weekdayGroup1)] ?? 1
         } else if match.isNotEmpty(atRangeIndex: weekdayGroup2) {
