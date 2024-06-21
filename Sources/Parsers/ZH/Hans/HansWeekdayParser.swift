@@ -10,15 +10,14 @@ import Foundation
 private let PATTERN =
 "(上|今|本|下|这)" +
 "(?:個|个)?" +
-"(周|星期|礼拜)" +
+"(?:周|星期|礼拜)" +
 "(\(ZH_WEEKDAY_OFFSET_PATTERN))?|" +
-"(周|星期|礼拜)" +
+"(?:周|星期|礼拜)" +
 "(\(ZH_WEEKDAY_OFFSET_PATTERN))"
 
 private let prefixGroup = 1
-private let weekdayGroup = 4
-private let fixedWeekGroup = 5
-private let weekdayGroup2 = 6
+private let weekdayGroup1 = 2
+private let weekdayGroup2 = 3
 
 public class HansWeekdayParser: Parser {
     override var pattern: String { return PATTERN }
@@ -28,16 +27,10 @@ public class HansWeekdayParser: Parser {
         let (matchText, index) = matchTextAndIndexForCHHant(from: text, andMatchResult: match)
         var result = ParsedResult(ref: ref, index: index, text: matchText)
         var offset = 1
-        if match.isNotEmpty(atRangeIndex: prefixGroup) {
-            if match.isNotEmpty(atRangeIndex: weekdayGroup) {
-                offset = ZH_WEEKDAY_OFFSET[match.string(from: text, atRangeIndex: weekdayGroup)] ?? 1
-            }
-        } else if match.isNotEmpty(atRangeIndex: fixedWeekGroup) {
-            if match.isNotEmpty(atRangeIndex: weekdayGroup2) {
-                offset = ZH_WEEKDAY_OFFSET[match.string(from: text, atRangeIndex: weekdayGroup2)] ?? 1
-            }
-        } else {
-            return nil
+        if match.isNotEmpty(atRangeIndex: weekdayGroup1) {
+            offset = ZH_WEEKDAY_OFFSET[match.string(from: text, atRangeIndex: weekdayGroup1)] ?? 1
+        } else if match.isNotEmpty(atRangeIndex: weekdayGroup2) {
+            offset = ZH_WEEKDAY_OFFSET[match.string(from: text, atRangeIndex: weekdayGroup2)] ?? 1
         }
         
         var modifier = ""
